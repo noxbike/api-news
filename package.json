@@ -1,0 +1,19 @@
+{
+  "name": "api-news",
+  "version": "1.0.0",
+  "description": "api pour mon projet little-news",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noxbike/api-news.git"
+  },
+  "author": "Morel-Mickael",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noxbike/api-news/issues"
+  },
+  "homepage": "https://github.com/noxbike/api-news#readme"
+}
