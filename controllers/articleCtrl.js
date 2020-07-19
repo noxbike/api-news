@@ -2,13 +2,13 @@ var models = require('../models');
 
 module.exports = {
     create: function(req, res){
-        var title    = req.body.title;
         var piture   = req.body.piture;
+        var title    = req.body.title;
         var body     = req.body.body;
         var category = req.body.category;
 
         if(title == null || piture == null || body == null || category == null) {
-            return res.status(400).json({ 'error': 'missing title'});
+            return res.status(400).json({ 'error': `missing ${piture}` });
         }
 
         var newArticle = models.Article.create({
@@ -28,7 +28,6 @@ module.exports = {
     },
 
     showOneArticle: function(req, res) {
-
     },
 
     showCatArticle: function(req, res) {

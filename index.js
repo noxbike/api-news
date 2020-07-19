@@ -3,7 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var router = require('./router').router;
 
-app.unsubscribe(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/bonjour', function(req, res) {
