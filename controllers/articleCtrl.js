@@ -50,9 +50,30 @@ module.exports = {
             res.status(500).json({ 'error': 'invalid fields' });
         })
     },
+
+    showArticle: function(req,res){
+        var idArticle = req.params.id;
+
+        models.Article.findOne({
+            attributes: ['piture', 'title', 'body', 'createdAt'],
+            where:      { id: idArticle }
+        })
+        .then(function(articleFound){
+            if(articleFound){
+                res.status(200).json({ articleFound });
+            }
+
+            else {
+                res.status(404).json({ 'error': 'article not found' });
+            }
+        })
+        .catch(function(err){
+            res.status(500).json({ 'error': 'intern error' });
+        })
+    },
     
     update: function(req, res) {
-        var idArticle = req.body.idArticle;
+        var idArticle = req.params.id;
         var title     = req.body.title;
 
         models.Article.findOne({

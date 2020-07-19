@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       models.Article.hasMany(models.Comment,{
-        as: 'Comments'
+        as: 'comments'
       });
     }
   };
