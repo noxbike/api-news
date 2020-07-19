@@ -52,5 +52,19 @@ module.exports = {
         .catch(function(err){
             return res.status(500).json({ 'error': err });
         })
+    },
+
+    deleted: function(req, res) {
+        var idComment =  req.body.idComment;
+
+        models.Comment.destroy({
+            where: { id: idComment }
+        })
+        .then(function(commentFound){
+            res.status(200).json({'deleted': commentFound });
+        })
+        .catch(function(err){
+            return res.status(500).json({ 'error': 'you cannot delete this comment'});
+        })
     }
 }

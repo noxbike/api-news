@@ -99,5 +99,19 @@ module.exports = {
         .catch(function(err){
             res.status(500).json({ 'error': 'invalid params' });
         })
+    },
+
+    deleted: function(req, res) {
+        var idArticle =  req.body.idArticle;
+
+        models.Article.destroy({
+            where: { id: idArticle }
+        })
+        .then(function(articleFound){
+            res.status(200).json({'deleted': articleFound });
+        })
+        .catch(function(err){
+            return res.status(500).json({ 'error': 'you cannot delete this article'});
+        })
     }
 }
