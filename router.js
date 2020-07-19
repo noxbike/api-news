@@ -9,9 +9,11 @@ exports.router =(function(){
     router.route('/article/:id/').get(articleCtrl.showArticle);
     router.route('/article/create/').post(articleCtrl.create);
     router.route('/article/:id/').put(articleCtrl.update);
+    router.route('/article/:id/').delete(articleCtrl.delete);
 
     router.route('/article/:id/comment/').get(commentCtrl.show)
     router.route('/article/:id/comment/create/').post(commentCtrl.create);
+    router.route('/article/:id/comment/:id').delete(commentCtrl.delete);
     
     return router;
 }) ();

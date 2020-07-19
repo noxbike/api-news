@@ -5,19 +5,19 @@ module.exports = {
         var id = req.params.id;
 
         models.Comment.findAll({
-            attributes: ['pseudo', 'body', 'createdAt'],
+            attributes: [ 'pseudo', 'body', 'createdAt' ],
             where: { idArticle: id }
         })
-        .then(function(CommentFound){
-            if(CommentFound){
-                res.status(200).json({ CommentFound });
+        .then(function(CommentFound) {
+            if(CommentFound) {
+                return res.status(200).json({ CommentFound });
             }
-            else{
-                res.status(404).json({ 'error': 'Comment not Found' });
+            else {
+                return res.status(404).json({ 'error': 'Comment not Found' });
             }
         })
-        .catch(function(err){
-            res.status(500).json({'error': 'intern error'});
+        .catch(function(err) {
+            return res.status(500).json({ 'error': 'intern error' });
         })
 
     },
@@ -28,11 +28,11 @@ module.exports = {
         var body      = req.body.body;
         
         models.Article.findOne({
-            attributes: ['id'],
+            attributes: [ 'id' ],
             where: { id: idArticle }
         })
-        .then(function(articleFound){
-            if(articleFound){
+        .then(function(articleFound) {
+            if(articleFound) {
                 var newComment = models.Comment.create({
                     pseudo: pseudo,
                     body: body,
@@ -41,30 +41,30 @@ module.exports = {
                 .then(function(newComment) {
                     return res.status(201).json({ 'idComment': newComment.id });
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     return res.status(500).json({ 'error': err });
                 })
             }
-            else{
-                res.status(404).json({ 'error': 'article not found' });
+            else {
+                return res.status(404).json({ 'error': 'article not found' });
             }
         })
-        .catch(function(err){
+        .catch(function(err) {
             return res.status(500).json({ 'error': err });
         })
     },
 
-    deleted: function(req, res) {
-        var idComment =  req.body.idComment;
+    delete: function(req, res) {
+        var idComment = req.params.id;
 
         models.Comment.destroy({
             where: { id: idComment }
         })
-        .then(function(commentFound){
-            res.status(200).json({'deleted': commentFound });
+        .then(function(commentFound) {
+            return res.status(200).json({ 'deleted': commentFound });
         })
-        .catch(function(err){
-            return res.status(500).json({ 'error': 'you cannot delete this comment'});
+        .catch(function(err) {
+            return res.status(500).json({ 'error': 'you cannot delete this comment' });
         })
     }
 }

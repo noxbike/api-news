@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Article.init({
-    piture: DataTypes.STRING,
+    picture: DataTypes.STRING,
     body: DataTypes.STRING,
     title: DataTypes.STRING,
     category: DataTypes.STRING
