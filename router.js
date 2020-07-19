@@ -8,7 +8,7 @@ exports.router =(function(){
     router.route('/articles').get(articleCtrl.showArticles);
     //router.route('/article').get(articleCtrl.showOneArticle);
     router.route('/article/create/').post(articleCtrl.create);
-    //router.route('/article/edit/').put(articleCtrl.update);
+    router.route('/article/edit/').put(articleCtrl.update);
 
     //router.route('/article/comment/').get(commentCtrl.show)
     //router.route('/article/comment/create').post(commentCtrl.create);

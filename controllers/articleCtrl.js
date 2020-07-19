@@ -12,9 +12,9 @@ module.exports = {
         }
 
         var newArticle = models.Article.create({
-            title: title,
-            piture: piture,
-            body: body,
+            title:    title,
+            piture:   piture,
+            body:     body,
             category: category
         })
         .then(function(newArticle) {
@@ -27,30 +27,23 @@ module.exports = {
         })
     },
 
-    showOneArticle: function(req, res) {
-    },
-
-    showCatArticle: function(req, res) {
-
-    },
-
     showArticles: function(req, res) {
         var fields = req.query.fields;
         var limit  = parseInt(req.query.limit);
         var offset = parseInt(req.query.offset);
-        var order  =req.query.order;
+        var order  = req.query.order;
 
         models.Article.findAll({
-            order: [(order != null) ? order.split(':') : ['id', 'ASC']],
+            order:      [(order != null) ? order.split(':') : ['id', 'ASC']],
             attributes: (fields !== '*' && fields != null) ? fields.split(',') : null,
-            limit: (!isNaN(limit)) ? limit : null,
-            offset: (!isNaN(offset)) ? offset : null,
+            limit:      (!isNaN(limit)) ? limit : null,
+            offset:     (!isNaN(offset)) ? offset : null,
         }).then(function(article){
             if(article){
                 res.status(200).json({ article });
             }
             else {
-                res.status(404).json({ 'error': 'no article found' })
+                res.status(404).json({ 'error': 'no article found' });
             }
         })
         .catch(function(err){
@@ -59,6 +52,31 @@ module.exports = {
     },
     
     update: function(req, res) {
+        var idArticle = req.body.idArticle;
+        var title     = req.body.title;
 
+        models.Article.findOne({
+            attributes: ['id', 'title'],
+            where:      { id: idArticle }
+        })
+        .then(function(articleFound){
+            if(articleFound){
+                articleFound.update({
+                    'title': title
+                })
+                .then(function(success){
+                    res.status(200).json({ 'message': 'updated with success' });
+                })
+                .catch(function(err){
+                    res.status(400).json({ 'error': 'cannot update' });
+                })
+            }
+            else{
+                res.status(404).json({ 'error': 'article not found' });
+            }
+        })
+        .catch(function(err){
+            res.status(500).json({ 'error': 'invalid params' });
+        })
     }
 }
