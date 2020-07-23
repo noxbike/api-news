@@ -5,7 +5,7 @@ var commentCtrl = require('./controllers/commentCtrl');
 exports.router =(function(){
     var router = express.Router();
 
-    router.route('/articles').get(articleCtrl.showArticles);
+    router.route('/articles/').get(articleCtrl.showArticles);
     router.route('/article/:id/').get(articleCtrl.showArticle);
     router.route('/article/create/').post(articleCtrl.create);
     router.route('/article/:id/').put(articleCtrl.update);
@@ -13,7 +13,7 @@ exports.router =(function(){
 
     router.route('/article/:id/comment/').get(commentCtrl.show)
     router.route('/article/:id/comment/create/').post(commentCtrl.create);
-    router.route('/article/:id/comment/:id').delete(commentCtrl.delete);
+    router.route('/article/:id/comment/:idComment').delete(commentCtrl.delete);
     
     return router;
 }) ();

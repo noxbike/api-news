@@ -5,12 +5,12 @@ module.exports = {
         var id = req.params.id;
 
         models.Comment.findAll({
-            attributes: [ 'pseudo', 'body', 'createdAt' ],
+            attributes: [ 'id', 'pseudo', 'body', 'createdAt' ],
             where: { idArticle: id }
         })
-        .then(function(CommentFound) {
-            if(CommentFound) {
-                return res.status(200).json({ CommentFound });
+        .then(function(commentFound) {
+            if(commentFound) {
+                return res.status(200).json({ commentFound });
             }
             else {
                 return res.status(404).json({ 'error': 'Comment not Found' });
@@ -42,7 +42,7 @@ module.exports = {
                     return res.status(201).json({ 'idComment': newComment.id });
                 })
                 .catch(function(err) {
-                    return res.status(500).json({ 'error': err });
+                    return res.status(500).json({ 'error': 'cannot post this comment' });
                 })
             }
             else {
@@ -50,12 +50,12 @@ module.exports = {
             }
         })
         .catch(function(err) {
-            return res.status(500).json({ 'error': err });
+            return res.status(500).json({ 'error': 'intern error' });
         })
     },
 
     delete: function(req, res) {
-        var idComment = req.params.id;
+        var idComment = req.params.idComment;
 
         models.Comment.destroy({
             where: { id: idComment }

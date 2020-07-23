@@ -2,7 +2,7 @@ var models = require('../models');
 
 module.exports = {
     create: function(req, res){
-        var picture   = req.body.picture;
+        var picture  = req.body.picture;
         var title    = req.body.title;
         var body     = req.body.body;
         var category = req.body.category;
@@ -13,7 +13,7 @@ module.exports = {
 
         var newArticle = models.Article.create({
             title:    title,
-            picture:   picture,
+            picture:  picture,
             body:     body,
             category: category
         })
@@ -56,7 +56,7 @@ module.exports = {
         var idArticle = req.params.id;
 
         models.Article.findOne({
-            attributes: [ 'picture', 'title', 'body', 'createdAt' ],
+            attributes: [ 'picture', 'title', 'body', 'category', 'createdAt' ],
             where:      { id: idArticle }
         })
         .then(function(articleFound) {
