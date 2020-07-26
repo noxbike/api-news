@@ -10,9 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.Article.hasMany(models.Comment,{
-        as: 'comments'
-      });
+      models.Article.hasOne(models.Content);
     }
   };
   Article.init({

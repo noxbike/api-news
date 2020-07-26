@@ -6,7 +6,7 @@ module.exports = {
 
         models.Comment.findAll({
             attributes: [ 'id', 'pseudo', 'body', 'createdAt' ],
-            where: { idArticle: id }
+            where: { idcontent: id }
         })
         .then(function(commentFound) {
             if(commentFound) {
@@ -23,20 +23,20 @@ module.exports = {
     },
 
     create: function(req, res) {
-        var idArticle = req.params.id;
+        var idcontent = req.params.id;
         var pseudo    = req.body.pseudo;
         var body      = req.body.body;
         
-        models.Article.findOne({
+        models.Content.findOne({
             attributes: [ 'id' ],
-            where: { id: idArticle }
+            where: { id: idcontent }
         })
-        .then(function(articleFound) {
-            if(articleFound) {
+        .then(function(contentFound) {
+            if(contentFound) {
                 var newComment = models.Comment.create({
                     pseudo: pseudo,
                     body: body,
-                    idArticle: articleFound.id
+                    idcontent: contentFound.id
                 })
                 .then(function(newComment) {
                     return res.status(201).json({ 'idComment': newComment.id });
